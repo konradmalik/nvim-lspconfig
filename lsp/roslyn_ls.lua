@@ -131,7 +131,7 @@ return {
       -- try load first solution we find
       for entry, type in vim.fs.dir(root_dir) do
         if type == 'file' and vim.endswith(entry, '.sln') then
-          on_init_sln(client, entry)
+          on_init_sln(client, vim.fs.joinpath(root_dir, entry))
           return
         end
       end
@@ -139,7 +139,7 @@ return {
       -- if no solution is found load project
       for entry, type in vim.fs.dir(root_dir) do
         if type == 'file' and vim.endswith(entry, '.csproj') then
-          on_init_project(client, { entry })
+          on_init_project(client, { vim.fs.joinpath(root_dir, entry) })
         end
       end
     end,
